@@ -4,9 +4,14 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TasksModule } from './modules/tasks/tasks.module';
 import { AuthenticationMiddleware } from './middleware/authentication/authentication.middleware';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [AuthenticationModule, TasksModule],
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    AuthenticationModule,
+    TasksModule,
+  ],
   controllers: [AppController],
   providers: [AppService, Logger],
 })
