@@ -4,10 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "turbo dev  --no-daemon",
+    "dev": "turbo dev --no-daemon",
     "test:e2e": "turbo test:e2e",
     "co": "sui-mono commit",
-    "cm": "cz",
     "prepare": "husky install"
   },
   "keywords": [],
@@ -21,13 +20,6 @@
   },
   "devDependencies": {
     "@s-ui/mono": "^2.35.0",
-    "commitizen": "^4.3.0",
-    "cz-conventional-changelog": "^3.3.0",
     "husky": "^8.0.3"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
   }
 }
