@@ -1,5 +1,6 @@
 import { Controller, Logger, Get } from '@nestjs/common';
 import { AuthenticationService } from './authentication.service';
+import { User } from 'src/models/users/user.entity';
 
 @Controller('authentication')
 export class AuthenticationController {
@@ -8,9 +9,9 @@ export class AuthenticationController {
     private readonly logger: Logger,
   ) {}
 
-  @Get('/sigin')
-  sigIn(): string {
+  @Get('/users')
+  get(): Promise<User[]> {
     this.logger.log('GET user');
-    return this.authenticationService.getUser();
+    return this.authenticationService.getUsers();
   }
 }
