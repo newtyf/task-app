@@ -1,12 +1,23 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: ['log'],
     bufferLogs: true,
   });
+
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      // clean unnecessary fields
+      whitelist: true,
+      // no accept unnecessary fields
+      forbidNonWhitelisted: true,
+    }),
+  );
 
   const configSwagger = new DocumentBuilder()
     .setTitle('API example')

@@ -18,7 +18,6 @@ import { User } from './models/users/user.entity';
       username: process.env.MYSQL_USERNAME,
       password: process.env.MYSQL_PASSWORD,
       database: process.env.MYSQL_DATABASE,
-      // autoLoadEntities: true,
       entities: [User],
       synchronize: process.env.NODE_ENV === 'development',
     }),
