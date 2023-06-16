@@ -1,12 +1,15 @@
 import { Logger, MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule } from '@nestjs/config';
+
+import { User } from './models/users/user.entity';
+
 import { AuthenticationModule } from './modules/authentication/authentication.module';
+import { TasksModule } from './modules/tasks/tasks.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TasksModule } from './modules/tasks/tasks.module';
+
 import { AuthenticationMiddleware } from './middleware/authentication/authentication.middleware';
-import { ConfigModule } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './models/users/user.entity';
 
 @Module({
   imports: [
