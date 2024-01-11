@@ -1,7 +1,8 @@
 import { Controller, Logger, Get, Post, Body } from '@nestjs/common';
 import { AuthenticationService } from './authentication.service';
 import { User } from 'src/models/users/user.entity';
-import { CreateUserDto } from './dto';
+import { CreateUserDto, LoginUserDto } from './dto';
+import { error } from 'console';
 
 @Controller('authentication')
 export class AuthenticationController {
@@ -17,14 +18,14 @@ export class AuthenticationController {
   }
 
   @Post('/login')
-  login(): string {
+  async login(@Body() user: LoginUserDto): Promise<User> {
     this.logger.log('LOGIN user');
-    return 'login';
+    return await this.authenticationService.loginUser(user);
   }
 
   @Post('/register')
-  register(@Body() user: CreateUserDto): Promise<User> {
+  async register(@Body() user: CreateUserDto): Promise<User> {
     this.logger.log('REGISTER user');
-    return this.authenticationService.createUser(user);
+    return await this.authenticationService.createUser(user);
   }
 }

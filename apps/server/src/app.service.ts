@@ -6,6 +6,6 @@ export class AppService {
 
   getApi(): string {
     this.logger.log('GET / api');
-    return 'Welcompe shortly api';
+    return 'Welcompe task api';
   }
 }

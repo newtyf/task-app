@@ -9,8 +9,6 @@ import { TasksModule } from './modules/tasks/tasks.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
-import { AuthenticationMiddleware } from './middleware/authentication/authentication.middleware';
-
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -30,8 +28,5 @@ import { AuthenticationMiddleware } from './middleware/authentication/authentica
   controllers: [AppController],
   providers: [AppService, Logger],
 })
-export class AppModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AuthenticationMiddleware).forRoutes('authentication');
-  }
+export class AppModule {
 }
