@@ -2,14 +2,22 @@ import { Module, Logger, NestModule, MiddlewareConsumer } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthenticationController } from './authentication.controller';
 import { AuthenticationService } from './authentication.service';
-import { RegisterMiddleware } from './middleware/reigster.middleware';
 import { User } from 'src/models/users/user.entity';
-import { LoginMiddleware } from './middleware/login.middleware';
+import { JwtModule, JwtService } from '@nestjs/jwt';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User])],
-  controllers: [AuthenticationController],
+  imports: [
+    ConfigModule.forRoot(),
+    TypeOrmModule.forFeature([User]),
+    JwtModule.register({
+      global: true,
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: '120s' },
+    }),
+  ],
   providers: [AuthenticationService, Logger],
+  controllers: [AuthenticationController],
 })
 export class AuthenticationModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

@@ -1,17 +1,18 @@
-import { Logger, MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { Global, Logger, MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 
-import { User } from './models/users/user.entity';
-
 import { AuthenticationModule } from './modules/authentication/authentication.module';
 import { TasksModule } from './modules/tasks/tasks.module';
+import { Task, User } from './models';
+
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
+@Global()
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({ isGlobal: true}),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.MYSQL_HOST,
@@ -19,7 +20,7 @@ import { AppService } from './app.service';
       username: process.env.MYSQL_USERNAME,
       password: process.env.MYSQL_PASSWORD,
       database: process.env.MYSQL_DATABASE,
-      entities: [User],
+      entities: [User, Task],
       synchronize: process.env.NODE_ENV === 'development',
     }),
     AuthenticationModule,
@@ -28,5 +29,4 @@ import { AppService } from './app.service';
   controllers: [AppController],
   providers: [AppService, Logger],
 })
-export class AppModule {
-}
+export class AppModule {}

@@ -4,26 +4,26 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToMany,
+  ManyToOne,
 } from 'typeorm';
-import { Task } from '../tasks/task.entity';
+import { User } from '../users/user.entity';
 
 @Entity()
-export class User {
+export class Task {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ type: 'varchar', width: 50 })
-  username: string;
+  title: string;
 
-  @Column({ unique: true })
-  email: string;
+  @Column({ type: 'varchar' })
+  description: string;
 
-  @Column()
-  password: string;
+  @Column({ type: 'boolean' })
+  done: boolean;
 
-  @OneToMany(() => Task, (task) => task.user)
-  tasks: Task[]
+  @ManyToOne(() => User, (user) => user.tasks)
+    user: User
 
   @CreateDateColumn()
   created: Date;

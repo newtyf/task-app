@@ -4,8 +4,10 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { JwtService } from '@nestjs/jwt';
+
 import { Repository } from 'typeorm';
-import { User } from 'src/models/users/user.entity';
+import { User } from 'src/models';
 import { CreateUserDto, LoginUserDto } from './dto';
 import { compare, hash } from 'bcrypt';
 
@@ -13,6 +15,7 @@ import { compare, hash } from 'bcrypt';
 export class AuthenticationService {
   constructor(
     @InjectRepository(User) private usersRepository: Repository<User>,
+    private jwtService: JwtService,
   ) {}
 
   async getUsers(): Promise<User[]> {
@@ -41,7 +44,10 @@ export class AuthenticationService {
     return savedUser;
   }
 
-  async loginUser({ email, password }: LoginUserDto): Promise<User> {
+  async loginUser({
+    email,
+    password,
+  }: LoginUserDto): Promise<{ access_token: string }> {
     const logedUser = await this.usersRepository.findOne({ where: { email } });
 
     if (!logedUser) {
@@ -52,7 +58,13 @@ export class AuthenticationService {
       throw new UnauthorizedException('Usuario o contraseña no validos');
     }
 
+    const payload = { id: logedUser.id, email: logedUser.email };
     delete logedUser.password;
-    return logedUser;
+
+    // return logedUser;
+
+    return {
+      access_token: await this.jwtService.signAsync(payload),
+    };
   }
 }
