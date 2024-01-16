@@ -8,6 +8,7 @@ import { Task, User } from './models';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { UserModule } from './modules/user/user.module';
 
 @Global()
 @Module({
@@ -25,6 +26,7 @@ import { AppService } from './app.service';
     }),
     AuthenticationModule,
     TasksModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService, Logger],

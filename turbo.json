@@ -4,9 +4,15 @@
     "build": {
       "dependsOn": [
         "^build"
+      ],
+      "outputs": [
+        "dist/**"
       ]
     },
     "dev": {
+      "cache": false
+    },
+    "start": {
       "cache": false
     },
     "test:e2e": {

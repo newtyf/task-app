@@ -18,10 +18,6 @@ export class AuthenticationService {
     private jwtService: JwtService,
   ) {}
 
-  async getUsers(): Promise<User[]> {
-    return await this.usersRepository.find();
-  }
-
   async createUser({
     username,
     email,
