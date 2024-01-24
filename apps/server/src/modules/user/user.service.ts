@@ -15,10 +15,14 @@ export class UserService {
   // }
 
   async getUser({ payload }: GetUserDto): Promise<User> {
-    return await this.usersRepository.findOne({
+    const user = await this.usersRepository.findOne({
       where: {
         email: payload.email,
       },
     });
+
+    delete user.password;
+
+    return user;
   }
 }

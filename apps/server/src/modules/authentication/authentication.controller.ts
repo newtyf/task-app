@@ -11,7 +11,6 @@ import {
 import { AuthenticationService } from './authentication.service';
 import { CreateUserDto, LoginUserDto } from './dto';
 import { User } from 'src/models';
-import { AuthenticationGuard } from './authentication.guard';
 
 @Controller('auth')
 export class AuthenticationController {
@@ -23,7 +22,7 @@ export class AuthenticationController {
   @HttpCode(HttpStatus.OK)
   @Post('login')
   login(@Body() user: LoginUserDto): Promise<{ access_token: string }> {
-    this.logger.log('LOGIN user ' + process.env.JWT_SECRET);
+    this.logger.log('LOGIN user');
 
     return this.authenticationService.loginUser(user);
   }

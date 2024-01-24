@@ -14,7 +14,7 @@ export class TasksService {
   async getTasks({ payload }: ListTaskDto): Promise<Task[]> {
     return await this.tasksRepository.find({
       relations: {
-        user: true,
+        user: false,
       },
       where: {
         user: {

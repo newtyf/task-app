@@ -9,6 +9,7 @@ async function bootstrap() {
     bufferLogs: true,
   });
 
+  app.enableCors({origin: "*"})
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
