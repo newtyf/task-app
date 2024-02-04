@@ -1,36 +1,50 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const menu = [
   {
-    icon: "casa",
-    to: "home",
+    icon: "bi bi-house-door",
+    to: "/",
+    priority: 0,
   },
   {
-    icon: "calendar",
-    to: "calendar",
+    icon: "bi bi-calendar4",
+    to: "/calendar",
+    priority: 0,
   },
   {
-    icon: "plus",
-    to: "add-task",
+    icon: "bi bi-plus-circle-fill",
+    to: "/add",
+    priority: 1,
   },
   {
-    icon: "checklist",
-    to: "done-tasks",
+    icon: "bi bi-file-earmark-check",
+    to: "/done",
+    priority: 0,
   },
   {
-    icon: "user",
-    to: "profile",
+    icon: "bi bi-person",
+    to: "/profile",
+    priority: 0,
   },
 ];
 
 export const Navbar = () => {
   return (
-    <nav className='mt-auto flex border-t-[1px] border-black h-16'>
-      {menu.map((item) => (
-        <Link to={item.to} key={item.to} className='w-1/5  m-auto text-center'>
-          <img src={item.icon} alt='' />
-          {item.icon}
-        </Link>
+    <nav className='flex border-t-[1px] border-gray-500 py-3 fixed w-full bg-white bottom-0'>
+      {menu.map(({ icon, to, priority }) => (
+        <NavLink
+          to={to}
+          key={icon}
+          className={({isActive}) =>
+            "w-1/5 m-auto text-center text-lava-100 " + (isActive
+              ? "opacity-100"
+              : "opacity-70")
+          }
+        >
+          <i
+            className={`${icon} ${priority > 0 ? "text-5xl" : "text-2xl"}`}
+          ></i>
+        </NavLink>
       ))}
     </nav>
   );

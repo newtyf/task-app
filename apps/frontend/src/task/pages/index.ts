@@ -1,0 +1,5 @@
+export * from "./AddTaskPage"
+export * from "./CalendarPage"
+export * from "./DoneTasksPage"
+export * from "./HomePage"
+export * from "./ProfilePage"
