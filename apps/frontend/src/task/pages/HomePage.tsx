@@ -1,50 +1,45 @@
-import { useEffect, useState } from "react";
+import { TasksLayout } from "../layout/TasksLayout";
 
 export const HomePage = () => {
-  const [tasks, settasks] = useState<[]>();
+  // useEffect(() => {
+  //   const getTask = async () => {
+  //     const payload = {
+  //       email: "test2@gmail.com",
+  //       password: "testpassword",
+  //     };
 
-  useEffect(() => {
-    const getTask = async () => {
-      const payload = {
-        email: "test2@gmail.com",
-        password: "testpassword",
-      };
+  //     const login = await fetch("http://localhost:3000/auth/login", {
+  //       method: "POST",
+  //       body: JSON.stringify(payload),
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+  //     const jwt = await login.json();
 
-      const login = await fetch("http://localhost:3000/auth/login", {
-        method: "POST",
-        body: JSON.stringify(payload),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const jwt = await login.json();
+  //     console.log(jwt);
 
-      console.log(jwt);
+  //     const res = await fetch("http://localhost:3000/tasks", {
+  //       headers: {
+  //         Authorization: `Bearer ${jwt.access_token}`,
+  //       },
+  //     });
+  //     const data = await res.json();
 
-      const res = await fetch("http://localhost:3000/tasks", {
-        headers: {
-          Authorization: `Bearer ${jwt.access_token}`,
-        },
-      });
-      const data = await res.json();
+  //     console.log(data);
+  //     settasks(data);
+  //   };
 
-      console.log(data);
-      settasks(data);
-    };
+  //   getTask();
 
-    getTask();
-
-    return () => {};
-  }, []);
+  //   return () => {};
+  // }, []);
 
   return (
     <>
-      {tasks &&
-        tasks.map((i) => (
-          <p className='ml-3 text-2xl font-bold' key={i.created}>
-            {i.title}
-          </p>
-        ))}
+      <TasksLayout>
+        <h1>Hi, Bruce 👋</h1>
+      </TasksLayout>
     </>
   );
 };
