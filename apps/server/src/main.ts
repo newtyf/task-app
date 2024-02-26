@@ -10,6 +10,7 @@ async function bootstrap() {
   });
 
   app.enableCors({origin: "*"})
+  app.setGlobalPrefix('api');
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
@@ -28,7 +29,7 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, configSwagger);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('api/docs', app, document);
   await app.listen(3000);
 }
 bootstrap();
