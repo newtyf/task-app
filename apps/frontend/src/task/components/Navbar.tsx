@@ -30,7 +30,7 @@ const menu = [
 
 export const Navbar = () => {
   return (
-    <nav className='flex border-t-[1px] border-gray-500 py-3 fixed w-full bg-white bottom-0'>
+    <nav className='flex border-t-[1px] border-gray-500 py-3 w-full max-w-screen-sm bg-white bottom-0'>
       {menu.map(({ icon, to, priority }) => (
         <NavLink
           to={to}

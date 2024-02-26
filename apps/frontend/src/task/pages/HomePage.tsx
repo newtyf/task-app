@@ -1,4 +1,6 @@
 import { ChipStatus } from "../components/ChipStatus";
+import { CircleProgressBar } from "../components/CircleProgressBar";
+import { TaskCard } from "../components/TaskCard";
 import { TasksLayout } from "../layout/TasksLayout";
 
 export const HomePage = () => {
@@ -52,7 +54,7 @@ export const HomePage = () => {
             </p>
           </div>
         </header>
-        <article className='grid grid-cols-2 gap-4 mt-4'>
+        <section className='grid grid-cols-2 gap-3 mt-4'>
           <ChipStatus
             color='bg-blue-400'
             icons='bi bi-arrow-repeat'
@@ -78,8 +80,23 @@ export const HomePage = () => {
             title='On going'
             total={10}
           />
-        </article>
-        <article></article>
+        </section>
+        <section className='mt-4'>
+          <TaskCard id='2'>
+            <div className='mr-2 flex flex-col space-y-1'>
+              <h2 className='font-bold text-xl text-left'>
+                Website for Rune.io
+              </h2>
+              <p className='text-sm text-gray-500 text-left'>
+                Digital product design
+              </p>
+              <p className='text-sm font-bold text-left'>12 tasks</p>
+            </div>
+            <div className='max-w-20'>
+              <CircleProgressBar progress={25} color='text-lava-100' />
+            </div>
+          </TaskCard>
+        </section>
       </TasksLayout>
     </>
   );
