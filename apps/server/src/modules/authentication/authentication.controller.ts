@@ -1,16 +1,16 @@
 import {
   Controller,
   Logger,
-  Get,
   Post,
   Body,
   HttpCode,
   HttpStatus,
-  UseGuards,
+  Res,
 } from '@nestjs/common';
 import { AuthenticationService } from './authentication.service';
 import { CreateUserDto, LoginUserDto } from './dto';
 import { User } from 'src/models';
+import { Response } from 'express';
 
 @Controller('auth')
 export class AuthenticationController {
@@ -21,10 +21,20 @@ export class AuthenticationController {
 
   @HttpCode(HttpStatus.OK)
   @Post('login')
-  login(@Body() user: LoginUserDto): Promise<{ access_token: string }> {
+  async login(
+    @Body() user: LoginUserDto,
+    @Res({ passthrough: true }) res: Response,
+  ): Promise<string> {
     this.logger.log('LOGIN user');
 
-    return this.authenticationService.loginUser(user);
+    const { access_token } = await this.authenticationService.loginUser(user);
+
+    res.cookie('access_token', access_token, {
+      httpOnly: true,
+      secure: true,
+    });
+
+    return 'Login Successful';
   }
 
   @Post('register')

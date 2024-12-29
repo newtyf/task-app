@@ -44,20 +44,20 @@ export class AuthenticationService {
     email,
     password,
   }: LoginUserDto): Promise<{ access_token: string }> {
-    const logedUser = await this.usersRepository.findOne({ where: { email } });
+    const loggedUser = await this.usersRepository.findOne({ where: { email } });
 
-    if (!logedUser) {
+    if (!loggedUser) {
       throw new UnauthorizedException('Usuario o contraseña no validos');
     }
 
-    if (!(await compare(password, logedUser.password))) {
+    if (!(await compare(password, loggedUser.password))) {
       throw new UnauthorizedException('Usuario o contraseña no validos');
     }
 
-    const payload = { id: logedUser.id, email: logedUser.email };
-    delete logedUser.password;
+    const payload = { id: loggedUser.id, email: loggedUser.email };
+    delete loggedUser.password;
 
-    // return logedUser;
+    // return loggedUser;
 
     return {
       access_token: await this.jwtService.signAsync(payload),
